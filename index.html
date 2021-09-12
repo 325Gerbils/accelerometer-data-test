@@ -83,6 +83,7 @@
         data = []
 
         // make the canvii and parent divs
+
         α = document.createElement('canvas')
         α.setAttribute('id', 'α')
         parent_α = document.createElement('div')
@@ -100,6 +101,8 @@
         parent_γ = document.createElement('div')
         parent_γ.appendChild(γ)
         document.body.appendChild(parent_γ)
+
+        console.log(α, β, γ)
 
         // resize each canvas to fill its parent element minus padding
         rescale = () => {
