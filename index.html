@@ -98,10 +98,7 @@
 
         // dark mode magic
         // eventually make floating button toggle
-
-        if (sessionStorage.getItem("darkmode")) {
-            darkmode = sessionStorage.getItem("darkmode")
-        }
+        darkmode = localStorage.getItem("darkmode") ? localStorage.getItem("darkmode") : false
         console.log(darkmode)
         updateDarkModeBtn = () => {
             document.body.style.background = darkmode ? '#000' : '#fff'
@@ -116,9 +113,8 @@
             updateDarkModeBtn()
             console.log(darkmode)
         }
-        if (sessionStorage.getItem("lrtoggle")) {
-            lrtoggle = sessionStorage.getItem("lrtoggle")
-        }
+
+        lrtoggle = localStorage.getItem("lrtoggle") ? localStorage.getItem("lrtoggle") : false
         console.log(lrtoggle)
         updateLrtoggleBtn = () => {
             document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
