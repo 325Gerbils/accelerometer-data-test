@@ -171,7 +171,7 @@
         acl.start()
 
         // this or a while(true) loop?
-        setInterval(() => {
+        setInterval((α, β, γ) => {
 
             // push current values to history arrays
             alphas.push(current_α)
@@ -184,7 +184,7 @@
 
 
             // plot orientation data
-            [α, β, γ].forEach((e) => {
+            [α, β, γ].forEach(e => {
                 console.log(e)
                 e.getContext('2d').clearRect(0, 0, e.width, e.height)
                 e.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
@@ -194,9 +194,9 @@
             plot(γ, gammas)
 
             // now plot accelerometer data
-            [α, β, γ].forEach((e) => {
-                e.getContext('2d').strokeStyle = '#888'
+            [α, β, γ].forEach(e => {
                 console.log(e)
+                e.getContext('2d').strokeStyle = '#888'
             })
             plot(α, xs)
             plot(β, ys)
