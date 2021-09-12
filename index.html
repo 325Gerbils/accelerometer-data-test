@@ -184,7 +184,7 @@
 
 
             // plot orientation data
-            [α, β, γ].forEach(e => {
+            [α, β, γ].forEach((e) => {
                 console.log(e)
                 e.getContext('2d').clearRect(0, 0, e.width, e.height)
                 e.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
@@ -194,7 +194,7 @@
             plot(γ, gammas)
 
             // now plot accelerometer data
-            [α, β, γ].forEach(e => {
+            [α, β, γ].forEach((e) => {
                 e.getContext('2d').strokeStyle = '#888'
                 console.log(e)
             })
