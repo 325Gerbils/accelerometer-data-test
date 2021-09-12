@@ -3,6 +3,7 @@
 <title>
 </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
 
@@ -49,7 +50,7 @@ document.body.appendChild(parent_γ)
 console.log(α, β, γ)
 
 document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
-parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
+parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:30vh;margin:0;padding:0;border-bottom:1px solid #888;'
 α.style = β.style = γ.style = 'margin:0;padding:0;'
 
 rescale = () => {
@@ -106,9 +107,9 @@ setInterval(() => {
     plot(β, betas)
     plot(γ, gammas)
 
-    alphas = alphas.slice(-α.width)
-    betas = betas.slice(-β.width)
-    gammas = gammas.slice(-γ.width)
+    alphas = alphas.slice(-α.width/2)
+    betas = betas.slice(-β.width/2)
+    gammas = gammas.slice(-γ.width/2)
 }, 10)
 
 
