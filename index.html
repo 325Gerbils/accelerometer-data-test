@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <script>
+        
+document.body = document.createElement('body')
+
+alphas = []
+betas = []
+gammas = []
+
+α = document.createElement('canvas')
+α.setAttribute('id', 'α')
+parent_α = document.createElement('div')
+parent_α.appendChild(α)
+document.body.appendChild(parent_α)
+
+β = document.createElement('canvas')
+β.setAttribute('id', 'β')
+parent_β = document.createElement('div')
+parent_β.appendChild(β)
+document.body.appendChild(parent_β)
+
+γ = document.createElement('canvas')
+γ.setAttribute('id', 'γ')
+parent_γ = document.createElement('div')
+parent_γ.appendChild(γ)
+document.body.appendChild(parent_γ)
+
+// α = parent_α.firstChild
+// β = parent_β.firstChild
+// γ = parent_γ.firstChild
+
+// console.log(α, β, γ)
+
+// α = document.getElementById('α')
+// β = document.getElementById('β')
+// γ = document.getElementById('γ')
+
+console.log(α, β, γ)
+
+document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
+parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
+α.style = β.style = γ.style = 'margin:0;padding:0;'
+
+rescale = () => {
+    [α, β, γ].forEach(e => {
+        console.log(e)
+        console.log(e.parentElement)
+        e.width = e.parentElement.clientWidth
+        e.height = e.parentElement.clientHeight
+    })
+}
+window.addEventListener('resize', rescale)
+rescale()
+
+fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
+
+scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
+
+autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data), Math.max(...data), target_min, target_max)
+
+plot = (canvas, data) => {
+    ctx = canvas.getContext('2d')
+    console.log(canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.strokeWidth = 1
+    ctx.beginPath()
+    for (i = 0; i < data.length; i++) {
+        ctx.moveTo((i - 1) * canvas.width / data.length, canvas.height - autoscale(data, i - 1, 0, canvas.height))
+        ctx.lineTo(i * canvas.width / data.length, canvas.height - autoscale(data, i, 0, canvas.height))
+        ctx.stroke()
+    }
+}
+
+// setInterval(() => {
+//     alphas.push(fix(Math.random(), 2))
+//     betas.push(fix(Math.random(), 2))
+//     gammas.push(fix(Math.random(), 2))
+
+//     plot(α, alphas)    
+//     plot(β, betas)
+//     plot(γ, gammas)
+// }, 1000)
+
+window.addEventListener('deviceorientation', (e) => {
+    alphas.push(fix(e.alpha, 2))
+    betas.push(fix(e.beta, 2))
+    gammas.push(fix(e.gamma, 2))
+    plot(α, alphas)    
+    plot(β, betas)
+    plot(γ, gammas)
+
+    alphas = alphas.slice(-500)
+    betas = betas.slice(-500)
+    gammas = gammas.slice(-500)
+})
+
+
+    </script>
+</body>
+</html>
