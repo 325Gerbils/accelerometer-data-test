@@ -170,8 +170,8 @@
         })
         acl.start()
 
-        // this or a while(true) loop?
-        setInterval((α, β, γ) => {
+        // it all begins
+        while (true) {
 
             // push current values to history arrays
             alphas.push(current_α)
@@ -221,8 +221,8 @@
                 z: fix(accel_z, 5),
                 time: Date.now().toString()
             })
-
-        }, 20) // 20 ms seems fast enough
+        }
+        // js interpreter will never see this line lol
     </script>
 </body>
 
