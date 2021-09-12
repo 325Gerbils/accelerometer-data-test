@@ -132,12 +132,18 @@ setInterval(() => {
     β.getContext('2d').clearRect(0, 0, β.width, β.height)
     γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
 
+    α.getContext('2d').strokeStyle = '#000'
+        β.getContext('2d').strokeStyle = '#000'
+        γ.getContext('2d').strokeStyle = '#000'
+
     plot(α, alphas)    
     plot(β, betas)
     plot(γ, gammas)
     
     // if (accel_mode) {
         α.getContext('2d').strokeStyle = '#888'
+        β.getContext('2d').strokeStyle = '#888'
+        γ.getContext('2d').strokeStyle = '#888'
         plot(α, xs)
         plot(β, ys)
         plot(γ, zs)
