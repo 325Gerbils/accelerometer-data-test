@@ -83,7 +83,6 @@
         data = []
 
         // make the canvii and parent divs
-
         α = document.createElement('canvas')
         α.setAttribute('id', 'α')
         parent_α = document.createElement('div')
@@ -101,8 +100,6 @@
         parent_γ = document.createElement('div')
         parent_γ.appendChild(γ)
         document.body.appendChild(parent_γ)
-
-        console.log(α, β, γ)
 
         // resize each canvas to fill its parent element minus padding
         rescale = () => {
@@ -161,7 +158,7 @@
 
         // read accelerometer data
         acl = new Accelerometer({
-            frequency: 60
+            frequency: 20
         })
         acl.addEventListener('reading', () => {
             accel_x = acl.x
@@ -170,34 +167,38 @@
         })
         acl.start()
 
-        // it all begins
-        while (true) {
+        // this or a while(true) loop?
+        setInterval(() => {
 
-            // push current values to history arrays
+            // add the current orientation data to the list
             alphas.push(current_α)
             betas.push(current_β)
             gammas.push(current_γ)
 
+            // add the current accelerometer data to the list
             xs.push(accel_x)
             ys.push(accel_y)
             zs.push(accel_z)
 
 
             // plot orientation data
-            [α, β, γ].forEach(e => {
-                console.log(e)
-                e.getContext('2d').clearRect(0, 0, e.width, e.height)
-                e.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
-            })
+            // i tried [α, β, γ].forEach(e => { and it said 
+            // "TypeError: Cannot read properties of undefined (reading forEach) at (index):187"
+            α.getContext('2d').clearRect(0, 0, α.width, α.height)
+            β.getContext('2d').clearRect(0, 0, β.width, β.height)
+            γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
+            α.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
+            β.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
+            γ.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
             plot(α, alphas)
             plot(β, betas)
             plot(γ, gammas)
 
             // now plot accelerometer data
-            [α, β, γ].forEach(e => {
-                console.log(e)
-                e.getContext('2d').strokeStyle = '#888'
-            })
+            // at least copilot is good at this shit to it takes like three keystrokes
+            α.getContext('2d').strokeStyle = '#888'
+            β.getContext('2d').strokeStyle = '#888'
+            γ.getContext('2d').strokeStyle = '#888'
             plot(α, xs)
             plot(β, ys)
             plot(γ, zs)
@@ -221,8 +222,8 @@
                 z: fix(accel_z, 5),
                 time: Date.now().toString()
             })
-        }
-        // js interpreter will never see this line lol
+
+        }, 20) // 20 ms seems fast enough
     </script>
 </body>
 
