@@ -15,7 +15,9 @@
 
         document.body.onmousedown = () => {
             // accel_mode = !accel_mode
-            navigator.clipboard.writeText(data)
+            navigator.clipboard.writeText(JSON.stringify(data.forEach(d => {
+                return JSON.stringify(d)
+            })))
         }
 
         alphas = []
@@ -168,7 +170,8 @@
                 γ: current_γ,
                 x: accel_x,
                 y: accel_y,
-                z: accel_z
+                z: accel_z,
+                timestamp: Date.now().toString()
             })
 
         }, 20)
