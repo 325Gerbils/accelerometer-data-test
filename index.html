@@ -97,36 +97,28 @@
         // dark mode magic
         // eventually make floating button toggle
         darkmode = localStorage.getItem("darkmode") ? localStorage.getItem("darkmode") : false
-        console.log(darkmode)
-        updateDarkModeBtn = (darkmode) => {
+        document.body.style.background = darkmode ? '#000' : '#fff'
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
+        toggle = document.getElementById('darkmodetoggle')
+        toggle.innerHTML = darkmode ? '🌞' : '🌙'
+        toggleDarkMode = () => {
+            darkmode = !darkmode
+            localStorage.setItem('darkmode', darkmode)
             document.body.style.background = darkmode ? '#000' : '#fff'
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
         }
-        toggleDarkMode = () => {
-            darkmode = !darkmode
-            localStorage.setItem('darkmode', darkmode)
-            updateDarkModeBtn(darkmode)
-            console.log(darkmode)
-        }
 
         lrtoggle = localStorage.getItem("lrtoggle") ? localStorage.getItem("lrtoggle") : false
-        console.log(lrtoggle)
-        updateLrtoggleBtn = (lrtoggle) => {
-            document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
-            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
-        }
+        document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
+        document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
         toggleLR = () => {
             lrtoggle = !lrtoggle
             localStorage.setItem('lrtoggle', lrtoggle)
-            updateLrtoggleBtn(lrtoggle)
+            document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
+            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
             console.log(lrtoggle)
-        }
-
-        document.onload = () => {
-            updateDarkModeBtn(darkmode)
-            updateLrtoggleBtn(lrtoggle)
         }
 
         // list of past n orientation data
