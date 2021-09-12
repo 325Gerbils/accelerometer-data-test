@@ -9,7 +9,7 @@
         /* fix everything */
 
         :focus {
-            outline: none !important;
+            outline: none;
         }
 
         * {
@@ -59,7 +59,7 @@
             outline: none;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.2s ease-in-out;
+            transition: background-color 0.1s;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -102,7 +102,7 @@
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
-            toggle.style.backgroundColor = '#333'
+            // toggle.style.backgroundColor = '#333'
             toggle.blur()
         }
 
