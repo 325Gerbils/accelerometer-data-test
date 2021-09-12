@@ -85,8 +85,7 @@ autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data
 
 plot = (canvas, data) => {
     ctx = canvas.getContext('2d')
-    console.log(canvas.width, canvas.height)
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.strokeWidth = 1
     ctx.beginPath()
     for (i = 0; i < data.length; i++) {
@@ -124,6 +123,10 @@ setInterval(() => {
     alphas.push(current_α)
     betas.push(current_β)
     gammas.push(current_γ)
+    α.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    β.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    γ.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+
     plot(α, alphas)    
     plot(β, betas)
     plot(γ, gammas)
