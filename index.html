@@ -77,7 +77,7 @@ rescale = () => {
 window.addEventListener('resize', rescale)
 rescale()
 
-fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
+// fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
 
 scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
 
@@ -107,18 +107,17 @@ plot = (canvas, data) => {
 // }, 1000)
 
 window.addEventListener('deviceorientation', (e) => {
-    current_α = fix(e.alpha, 6)
-    current_β = fix(e.beta, 6)
-    current_γ = fix(e.gamma, 6)
+    current_α = e.alpha
+    current_β = e.beta
+    current_γ = e.gamma
 })
 
 acl = new Accelerometer({frequency: 60})
 acl.addEventListener('reading', () => {
-    accel_x = fix(acl.x, 6)
-    accel_y = fix(acl.y, 6)
-    accel_z = fix(acl.z, 6)
+    accel_x = acl.x
+    accel_y = acl.y
+    accel_z = acl.z
 })
-
 acl.start()
 
 setInterval(() => {
