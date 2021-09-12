@@ -136,11 +136,12 @@ setInterval(() => {
     plot(β, betas)
     plot(γ, gammas)
     
-    if (accel_mode) {
+    // if (accel_mode) {
+        α.getContext('2d').strokeStyle = '#888'
         plot(α, xs)
         plot(β, ys)
         plot(γ, zs)
-    }
+    // }
 
     alphas = alphas.slice(-α.width/2)
     betas = betas.slice(-β.width/2)
@@ -149,7 +150,7 @@ setInterval(() => {
     ys = ys.slice(-β.width/2)
     zs = zs.slice(-γ.width/2)
 
-}, 10)
+}, 20)
 
 
     </script>
