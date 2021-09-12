@@ -10,12 +10,12 @@
 <body>
 
     <script>
-
         document.body = document.createElement('body')
         accel_mode = false
 
         document.body.onmousedown = () => {
-            accel_mode = !accel_mode
+            // accel_mode = !accel_mode
+            navigator.clipboard.writeText(data)
         }
 
         alphas = []
@@ -33,6 +33,8 @@
         accel_x = 0
         accel_y = 0
         accel_z = 0
+
+        data = []
 
         α = document.createElement('canvas')
         α.setAttribute('id', 'α')
@@ -87,7 +89,7 @@
 
         plot = (canvas, data) => {
             ctx = canvas.getContext('2d')
-            // ctx.clearRect(0, 0, canvas.width, canvas.height)
+                // ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.strokeWidth = 1
             ctx.beginPath()
             for (i = 0; i < data.length; i++) {
@@ -113,7 +115,9 @@
             current_γ = e.gamma
         })
 
-        acl = new Accelerometer({ frequency: 60 })
+        acl = new Accelerometer({
+            frequency: 60
+        })
         acl.addEventListener('reading', () => {
             accel_x = acl.x
             accel_y = acl.y
@@ -149,18 +153,25 @@
             plot(α, xs)
             plot(β, ys)
             plot(γ, zs)
-            // }
+                // }
 
-            alphas = alphas.slice(-α.width / 2)
-            betas = betas.slice(-β.width / 2)
-            gammas = gammas.slice(-γ.width / 2)
-            xs = xs.slice(-α.width / 2)
-            ys = ys.slice(-β.width / 2)
-            zs = zs.slice(-γ.width / 2)
+            alphas = alphas.slice(-α.width / 3)
+            betas = betas.slice(-β.width / 3)
+            gammas = gammas.slice(-γ.width / 3)
+            xs = xs.slice(-α.width / 3)
+            ys = ys.slice(-β.width / 3)
+            zs = zs.slice(-γ.width / 3)
 
-        }, 10)
+            data.push({
+                α: current_α,
+                β: current_β,
+                γ: current_γ,
+                x: accel_x,
+                y: accel_y,
+                z: accel_z
+            })
 
-
+        }, 20)
     </script>
 </body>
 
