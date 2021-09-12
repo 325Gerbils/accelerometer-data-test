@@ -22,7 +22,7 @@
         document.body.ondblclick = () => {
             // accel_mode = !accel_mode
             navigator.clipboard.writeText(JSON.stringify(data))
-            navigator.vibrate(20)
+            navigator.vibrate(100)
             alert("Accelerometer/rotation data copied to clipboard!")
         }
 
