@@ -74,6 +74,7 @@
     <span>
         <button id="darkmodetoggle" onclick="toggleDarkMode()">🌙</button>
         <button id="copydatabtn" onclick="copyData()">📋</button>
+        <button id="shortendata" onclick="shortenData()">🔥</button>
 
     </span>
     <script>
@@ -105,6 +106,8 @@
             // toggle.style.backgroundColor = '#333'
             toggle.blur()
         }
+
+        factor = 2
 
         // list of past n orientation data
         alphas = []
@@ -251,7 +254,9 @@
             plot(γ, zs)
 
             // trim the data for display
-            factor = 2
+            shortenData = () => {
+                factor = factor == 2 ? 3.5 : 2
+            }
             alphas = alphas.slice(-α.width / factor)
             betas = betas.slice(-β.width / factor)
             gammas = gammas.slice(-γ.width / factor)
