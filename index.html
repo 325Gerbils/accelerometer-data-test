@@ -1,164 +1,167 @@
 <html>
+
 <head>
-<title>
-</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="mobile-web-app-capable" content="yes">
+    <title>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
 </head>
+
 <body>
 
     <script>
-        
-document.body = document.createElement('body')
-accel_mode = false
 
-document.body.onmousedown = () => {
-    accel_mode = !accel_mode
-}
+        document.body = document.createElement('body')
+        accel_mode = false
 
-alphas = []
-betas = []
-gammas = []
+        document.body.onmousedown = () => {
+            accel_mode = !accel_mode
+        }
 
-xs = []
-ys = []
-zs = []
+        alphas = []
+        betas = []
+        gammas = []
 
-current_α = 0
-current_β = 0
-current_γ = 0
+        xs = []
+        ys = []
+        zs = []
 
-accel_x = 0
-accel_y = 0
-accel_z = 0
+        current_α = 0
+        current_β = 0
+        current_γ = 0
 
-α = document.createElement('canvas')
-α.setAttribute('id', 'α')
-parent_α = document.createElement('div')
-parent_α.appendChild(α)
-document.body.appendChild(parent_α)
+        accel_x = 0
+        accel_y = 0
+        accel_z = 0
 
-β = document.createElement('canvas')
-β.setAttribute('id', 'β')
-parent_β = document.createElement('div')
-parent_β.appendChild(β)
-document.body.appendChild(parent_β)
+        α = document.createElement('canvas')
+        α.setAttribute('id', 'α')
+        parent_α = document.createElement('div')
+        parent_α.appendChild(α)
+        document.body.appendChild(parent_α)
 
-γ = document.createElement('canvas')
-γ.setAttribute('id', 'γ')
-parent_γ = document.createElement('div')
-parent_γ.appendChild(γ)
-document.body.appendChild(parent_γ)
+        β = document.createElement('canvas')
+        β.setAttribute('id', 'β')
+        parent_β = document.createElement('div')
+        parent_β.appendChild(β)
+        document.body.appendChild(parent_β)
 
-// α = parent_α.firstChild
-// β = parent_β.firstChild
-// γ = parent_γ.firstChild
+        γ = document.createElement('canvas')
+        γ.setAttribute('id', 'γ')
+        parent_γ = document.createElement('div')
+        parent_γ.appendChild(γ)
+        document.body.appendChild(parent_γ)
 
-// console.log(α, β, γ)
+        // α = parent_α.firstChild
+        // β = parent_β.firstChild
+        // γ = parent_γ.firstChild
 
-// α = document.getElementById('α')
-// β = document.getElementById('β')
-// γ = document.getElementById('γ')
+        // console.log(α, β, γ)
 
-console.log(α, β, γ)
+        // α = document.getElementById('α')
+        // β = document.getElementById('β')
+        // γ = document.getElementById('γ')
 
-document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
-parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
-α.style = β.style = γ.style = 'margin:0;padding:0;'
+        console.log(α, β, γ)
 
-rescale = () => {
-    [α, β, γ].forEach(e => {
-        console.log(e)
-        console.log(e.parentElement)
-        e.width = e.parentElement.clientWidth
-        e.height = e.parentElement.clientHeight
-    })
-}
-window.addEventListener('resize', rescale)
-rescale()
+        document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
+        parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
+        α.style = β.style = γ.style = 'margin:0;padding:0;'
 
-// fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
+        rescale = () => {
+            [α, β, γ].forEach(e => {
+                console.log(e)
+                console.log(e.parentElement)
+                e.width = e.parentElement.clientWidth
+                e.height = e.parentElement.clientHeight
+            })
+        }
+        window.addEventListener('resize', rescale)
+        rescale()
 
-scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
+        // fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
 
-autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data), Math.max(...data), target_min, target_max)
+        scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
 
-plot = (canvas, data) => {
-    ctx = canvas.getContext('2d')
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.strokeWidth = 1
-    ctx.beginPath()
-    for (i = 0; i < data.length; i++) {
-        ctx.moveTo((i - 1) * canvas.width / data.length, canvas.height - autoscale(data, i - 1, 0, canvas.height))
-        ctx.lineTo(i * canvas.width / data.length, canvas.height - autoscale(data, i, 0, canvas.height))
-        ctx.stroke()
-    }
-}
+        autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data), Math.max(...data), target_min, target_max)
 
-// setInterval(() => {
-//     alphas.push(fix(Math.random(), 2))
-//     betas.push(fix(Math.random(), 2))
-//     gammas.push(fix(Math.random(), 2))
+        plot = (canvas, data) => {
+            ctx = canvas.getContext('2d')
+            // ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.strokeWidth = 1
+            ctx.beginPath()
+            for (i = 0; i < data.length; i++) {
+                ctx.moveTo((i - 1) * canvas.width / data.length, canvas.height - autoscale(data, i - 1, 0, canvas.height))
+                ctx.lineTo(i * canvas.width / data.length, canvas.height - autoscale(data, i, 0, canvas.height))
+                ctx.stroke()
+            }
+        }
 
-//     plot(α, alphas)    
-//     plot(β, betas)
-//     plot(γ, gammas)
-// }, 1000)
+        // setInterval(() => {
+        //     alphas.push(fix(Math.random(), 2))
+        //     betas.push(fix(Math.random(), 2))
+        //     gammas.push(fix(Math.random(), 2))
 
-window.addEventListener('deviceorientation', (e) => {
-    current_α = e.alpha
-    current_β = e.beta
-    current_γ = e.gamma
-})
+        //     plot(α, alphas)    
+        //     plot(β, betas)
+        //     plot(γ, gammas)
+        // }, 1000)
 
-acl = new Accelerometer({frequency: 60})
-acl.addEventListener('reading', () => {
-    accel_x = acl.x
-    accel_y = acl.y
-    accel_z = acl.z
-})
-acl.start()
+        window.addEventListener('deviceorientation', (e) => {
+            current_α = e.alpha
+            current_β = e.beta
+            current_γ = e.gamma
+        })
 
-setInterval(() => {
-    alphas.push(current_α)
-    betas.push(current_β)
-    gammas.push(current_γ)
-    
-    xs.push(accel_x)
-    ys.push(accel_y)
-    zs.push(accel_z)
+        acl = new Accelerometer({ frequency: 60 })
+        acl.addEventListener('reading', () => {
+            accel_x = acl.x
+            accel_y = acl.y
+            accel_z = acl.z
+        })
+        acl.start()
 
-    α.getContext('2d').clearRect(0, 0, α.width, α.height)
-    β.getContext('2d').clearRect(0, 0, β.width, β.height)
-    γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
+        setInterval(() => {
+            alphas.push(current_α)
+            betas.push(current_β)
+            gammas.push(current_γ)
 
-    α.getContext('2d').strokeStyle = '#000'
-        β.getContext('2d').strokeStyle = '#000'
-        γ.getContext('2d').strokeStyle = '#000'
+            xs.push(accel_x)
+            ys.push(accel_y)
+            zs.push(accel_z)
 
-    plot(α, alphas)    
-    plot(β, betas)
-    plot(γ, gammas)
-    
-    // if (accel_mode) {
-        α.getContext('2d').strokeStyle = '#888'
-        β.getContext('2d').strokeStyle = '#888'
-        γ.getContext('2d').strokeStyle = '#888'
-        plot(α, xs)
-        plot(β, ys)
-        plot(γ, zs)
-    // }
+            α.getContext('2d').clearRect(0, 0, α.width, α.height)
+            β.getContext('2d').clearRect(0, 0, β.width, β.height)
+            γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
 
-    alphas = alphas.slice(-α.width/2)
-    betas = betas.slice(-β.width/2)
-    gammas = gammas.slice(-γ.width/2)
-    xs = xs.slice(-α.width/2)
-    ys = ys.slice(-β.width/2)
-    zs = zs.slice(-γ.width/2)
+            α.getContext('2d').strokeStyle = '#000'
+            β.getContext('2d').strokeStyle = '#000'
+            γ.getContext('2d').strokeStyle = '#000'
 
-}, 10)
+            plot(α, alphas)
+            plot(β, betas)
+            plot(γ, gammas)
+
+            // if (accel_mode) {
+            α.getContext('2d').strokeStyle = '#888'
+            β.getContext('2d').strokeStyle = '#888'
+            γ.getContext('2d').strokeStyle = '#888'
+            plot(α, xs)
+            plot(β, ys)
+            plot(γ, zs)
+            // }
+
+            alphas = alphas.slice(-α.width)
+            betas = betas.slice(-β.width)
+            gammas = gammas.slice(-γ.width)
+            xs = xs.slice(-α.width)
+            ys = ys.slice(-β.width)
+            zs = zs.slice(-γ.width)
+
+        }, 10)
 
 
     </script>
 </body>
+
 </html>
