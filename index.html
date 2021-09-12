@@ -182,6 +182,8 @@
             ys.push(accel_y)
             zs.push(accel_z)
 
+            console.log(α, β, γ)
+
             // plot orientation data
             [α, β, γ].forEach(e => {
                 e.getContext('2d').clearRect(0, 0, e.width, e.height)
