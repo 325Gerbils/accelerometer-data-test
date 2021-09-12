@@ -128,14 +128,13 @@ setInterval(() => {
     ys.push(accel_y)
     zs.push(accel_z)
 
-    α.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    β.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    γ.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    α.getContext('2d').clearRect(0, 0, α.width, α.height)
+    β.getContext('2d').clearRect(0, 0, β.width, β.height)
+    γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
 
     plot(α, alphas)    
     plot(β, betas)
     plot(γ, gammas)
-    
     
     if (accel_mode) {
         plot(α, xs)
