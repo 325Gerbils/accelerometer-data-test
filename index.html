@@ -112,7 +112,7 @@
             updateDarkModeBtn()
         }
 
-        lrtoggle = sessionStorage.getItem("lrtoggle") ? sessionStorage.getItem("lrtoggle") == "left" : false
+        lrtoggle = sessionStorage.getItem("lrtoggle") ? sessionStorage.getItem("lrtoggle") == "true" : false
         updateLrtoggleBtn = () => {
             document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
             document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
@@ -120,7 +120,7 @@
         updateLrtoggleBtn()
         toggleLR = () => {
             lrtoggle = !lrtoggle
-            localStorage.setItem('lrtoggle', lrtoggle ? "left" : "right")
+            localStorage.setItem('lrtoggle', lrtoggle ? "true" : "false")
             updateLrtoggleBtn()
         }
 
