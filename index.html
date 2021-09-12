@@ -5,14 +5,16 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
+    <style>
+        /* // document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
+        //    parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
+        //    α.style = β.style = γ.style = 'margin:0;padding:0;' */
+    </style>
 </head>
 
 <body>
 
     <script>
-        document.body = document.createElement('body')
-        accel_mode = false
-
         oldStringify = JSON.stringify
         JSON.stringify = (obj, replacer, space) => oldStringify(obj, replacer || ((key, value) => {
             if (key && value === obj) return "[recursive]"
@@ -20,9 +22,8 @@
         }), space)
 
         document.body.ondblclick = () => {
-            // accel_mode = !accel_mode
             navigator.clipboard.writeText(JSON.stringify(data))
-            navigator.vibrate(100)
+            // navigator.vibrate(100)
             alert("Accelerometer/rotation data copied to clipboard!")
         }
 
@@ -62,22 +63,6 @@
         parent_γ.appendChild(γ)
         document.body.appendChild(parent_γ)
 
-        // α = parent_α.firstChild
-        // β = parent_β.firstChild
-        // γ = parent_γ.firstChild
-
-        // console.log(α, β, γ)
-
-        // α = document.getElementById('α')
-        // β = document.getElementById('β')
-        // γ = document.getElementById('γ')
-
-        console.log(α, β, γ)
-
-        document.body.style = 'box-sizing:border-box;margin:0;padding:0;display:flex;align-items:center;justify-content:center;flex-direction:column;'
-        parent_α.style = parent_β.style = parent_γ.style = 'width:100%;height:33vh;margin:0;padding:0;border-bottom:1px solid #888;'
-        α.style = β.style = γ.style = 'margin:0;padding:0;'
-
         rescale = () => {
             [α, β, γ].forEach(e => {
                 console.log(e)
@@ -93,29 +78,22 @@
 
         scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
 
+        // now using scale for plot instead of autoscale for performance reasons 
+        // no need to calculate min and max every time
         autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data), Math.max(...data), target_min, target_max)
 
         plot = (canvas, data) => {
             ctx = canvas.getContext('2d')
-                // ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.strokeWidth = 1
             ctx.beginPath()
+            data_min = Math.min(...data)
+            data_max = Math.max(...data)
             for (i = 0; i < data.length; i++) {
-                ctx.moveTo((i - 1) * canvas.width / data.length, canvas.height - autoscale(data, i - 1, 0, canvas.height))
-                ctx.lineTo(i * canvas.width / data.length, canvas.height - autoscale(data, i, 0, canvas.height))
+                ctx.moveTo((i - 1) * canvas.width / data.length, canvas.height - scale(data[i - 1], data_min, data_max, 0, canvas.height))
+                ctx.lineTo(i * canvas.width / data.length, canvas.height - scale(data[i], data_min, data_max, 0, canvas.height))
                 ctx.stroke()
             }
         }
-
-        // setInterval(() => {
-        //     alphas.push(fix(Math.random(), 2))
-        //     betas.push(fix(Math.random(), 2))
-        //     gammas.push(fix(Math.random(), 2))
-
-        //     plot(α, alphas)    
-        //     plot(β, betas)
-        //     plot(γ, gammas)
-        // }, 1000)
 
         window.addEventListener('deviceorientation', (e) => {
             current_α = e.alpha
@@ -161,7 +139,7 @@
             plot(α, xs)
             plot(β, ys)
             plot(γ, zs)
-                // }
+            // }
 
             alphas = alphas.slice(-α.width / 3)
             betas = betas.slice(-β.width / 3)
