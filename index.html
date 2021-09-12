@@ -31,11 +31,42 @@
             height: 33vh;
             border-bottom: 1px solid #888;
         }
+
+        /* floating buttons */
+
+        span {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            background-color: #888;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #bbb;
+        }
     </style>
 </head>
 
 <body>
-    <!-- who needs to write html anyways -->
+    <span>
+        <button id="darkmodetoggle" onclick="toggleDarkMode()">🌞</button>
+    </span>
     <script>
         // stringify that recursively stringifies objects
         // for copying the data variable as text
@@ -56,8 +87,12 @@
         // dark mode magic
         // eventually make floating button toggle
         darkmode = true
-        document.body.style.background = darkmode ? '#000' : '#fff'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
+        toggleDarkMode = () => {
+            darkmode = !darkmode
+            document.body.style.background = darkmode ? '#000' : '#fff'
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
+            document.getElementById('darkmodetoggle').innerHTML = darkmode ? '🌙' : '🌞'
+        }
 
         // list of past n orientation data
         alphas = []
