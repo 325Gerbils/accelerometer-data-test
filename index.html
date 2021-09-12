@@ -59,7 +59,7 @@
         }
 
         button:hover,
-        button:focus {
+        button:active {
             user-select: none;
             background-color: #bbb;
         }
@@ -97,6 +97,7 @@
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
+            toggle.blur()
         }
 
         // list of past n orientation data
