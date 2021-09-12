@@ -96,11 +96,7 @@
 
         // dark mode magic
         // eventually make floating button toggle
-        darkmode = localStorage.getItem("darkmode") ? localStorage.getItem("darkmode") : false
-        document.body.style.background = darkmode ? '#000' : '#fff'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
-        toggle = document.getElementById('darkmodetoggle')
-        toggle.innerHTML = darkmode ? '🌞' : '🌙'
+        darkmode = localStorage.getItem("darkmode") ? !localStorage.getItem("darkmode") : false
         toggleDarkMode = () => {
             darkmode = !darkmode
             localStorage.setItem('darkmode', darkmode)
@@ -109,10 +105,9 @@
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
         }
+        toggleDarkMode()
 
-        lrtoggle = localStorage.getItem("lrtoggle") ? localStorage.getItem("lrtoggle") : false
-        document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
-        document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
+        lrtoggle = localStorage.getItem("lrtoggle") ? !localStorage.getItem("lrtoggle") : false
         toggleLR = () => {
             lrtoggle = !lrtoggle
             localStorage.setItem('lrtoggle', lrtoggle)
@@ -120,6 +115,7 @@
             document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
             console.log(lrtoggle)
         }
+        toggleLR()
 
         // list of past n orientation data
         alphas = []
