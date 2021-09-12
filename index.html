@@ -60,6 +60,7 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.1s;
+            transition: left 0.25s;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
@@ -74,7 +75,7 @@
     <span>
         <button id="darkmodetoggle" onclick="toggleDarkMode()">🌙</button>
         <button id="copydatabtn" onclick="copyData()">📋</button>
-        <button id="lrswitcher" onclick="toggleLR()">⇄</button>
+        <button id="lrswitcher" onclick="toggleLR()">👈</button>
 
     </span>
     <script>
@@ -110,7 +111,7 @@
         toggleLR = () => {
             lrtoggle = !lrtoggle
             document.querySelector('span').style.right = lrtoggle ? "20px" : "calc(100% - 70px)"
-            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '➡' : '⬅'
+            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👉' : '👈'
         }
         // list of past n orientation data
         alphas = []
