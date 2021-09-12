@@ -13,11 +13,15 @@
         document.body = document.createElement('body')
         accel_mode = false
 
+        oldStringify = JSON.stringify
+        JSON.stringify = (obj, replacer, space) => oldStringify(obj, replacer || ((key, value) => {
+            if (key && value === obj) return "[recursive]"
+            return value
+        }), space)
+
         document.body.onmousedown = () => {
             // accel_mode = !accel_mode
-            navigator.clipboard.writeText(JSON.stringify(data.forEach(d => {
-                return JSON.stringify(d)
-            })))
+            navigator.clipboard.writeText(JSON.stringify(data))
         }
 
         alphas = []
