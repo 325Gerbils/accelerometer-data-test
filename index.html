@@ -86,6 +86,7 @@
             navigator.clipboard.writeText(JSON.stringify(data))
             // alert("Accelerometer/orientation data copied to clipboard!")
             // replace with nonblocking toast
+            document.getElementById('darkmodetoggle').blur()
         }
 
         // dark mode magic
