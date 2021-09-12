@@ -91,7 +91,9 @@
             darkmode = !darkmode
             document.body.style.background = darkmode ? '#000' : '#fff'
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
-            document.getElementById('darkmodetoggle').innerHTML = darkmode ? '🌙' : '🌞'
+            toggle = document.getElementById('darkmodetoggle')
+            toggle.innerHTML = darkmode ? '🌞' : '🌙'
+            toggle.style.background = darkmode ? '#bbb' : '#333'
         }
 
         // list of past n orientation data
