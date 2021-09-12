@@ -69,6 +69,8 @@
 <body>
     <span>
         <button id="darkmodetoggle" onclick="toggleDarkMode()">🌙</button>
+        <button id="copydatabtn" onclick="copyData()">📋</button>
+
     </span>
     <script>
         // stringify that recursively stringifies objects
@@ -79,12 +81,11 @@
             return value
         }), space)
 
-        // for now - just copy the data variable to clipboard on double click
-        // replace with floating buttons & include a download
-        document.body.ondblclick = () => {
+        // copy the data variable to clipboard
+        copyData = () => {
             navigator.clipboard.writeText(JSON.stringify(data))
-            // navigator.vibrate(100)
-            alert("Accelerometer/orientation data copied to clipboard!")
+            // alert("Accelerometer/orientation data copied to clipboard!")
+            // replace with nonblocking toast
         }
 
         // dark mode magic
