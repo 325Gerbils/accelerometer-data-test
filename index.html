@@ -96,9 +96,9 @@ window.addEventListener('deviceorientation', (e) => {
     plot(β, betas)
     plot(γ, gammas)
 
-    alphas = alphas.slice(-500)
-    betas = betas.slice(-500)
-    gammas = gammas.slice(-500)
+    alphas = alphas.slice(-α.width)
+    betas = betas.slice(-β.width)
+    gammas = gammas.slice(-γ.width)
 })
 
 
