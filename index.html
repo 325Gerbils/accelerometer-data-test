@@ -74,7 +74,7 @@
     <span>
         <button id="darkmodetoggle" onclick="toggleDarkMode()">🌙</button>
         <button id="copydatabtn" onclick="copyData()">📋</button>
-        <button id="shortendata" onclick="shortenData()">🔥</button>
+        <button id="lrswitcher" onclick="toggleLR()">⇄</button>
 
     </span>
     <script>
@@ -106,9 +106,13 @@
             // toggle.style.backgroundColor = '#333'
             toggle.blur()
         }
-
-        factor = 2
-
+        lrtoggle = false // left
+        toggleLR = () => {
+            lrtoggle = !lrtoggle
+            document.querySelector('span').style.right = lrtoggle ? "20px" : ""
+            document.querySelector('span').style.left = lrtoggle ? "" : "20px"
+            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '⇄' : '⇆'
+        }
         // list of past n orientation data
         alphas = []
         betas = []
@@ -254,9 +258,7 @@
             plot(γ, zs)
 
             // trim the data for display
-            shortenData = () => {
-                factor = factor == 2 ? 3.5 : 2
-            }
+            factor = 2
             alphas = alphas.slice(-α.width / factor)
             betas = betas.slice(-β.width / factor)
             gammas = gammas.slice(-γ.width / factor)
