@@ -42,7 +42,6 @@
             position: fixed;
             bottom: 20px;
             right: 0px;
-            margin-right: 20px;
             z-index: 1;
             display: flex;
             flex-direction: column;
@@ -77,7 +76,6 @@
         <button id="darkmodetoggle" onclick="toggleDarkMode()">🌙</button>
         <button id="copydatabtn" onclick="copyData()">📋</button>
         <button id="lrswitcher" onclick="toggleLR()">👈</button>
-
     </span>
     <script>
         // stringify that recursively stringifies objects
@@ -106,7 +104,6 @@
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
         }
-        updateDarkModeBtn(darkmode)
         toggleDarkMode = () => {
             darkmode = !darkmode
             localStorage.setItem('darkmode', darkmode)
@@ -120,12 +117,16 @@
             document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
             document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
         }
-        updateLrtoggleBtn(lrtoggle)
         toggleLR = () => {
             lrtoggle = !lrtoggle
             localStorage.setItem('lrtoggle', lrtoggle)
             updateLrtoggleBtn(lrtoggle)
             console.log(lrtoggle)
+        }
+
+        document.onload = () => {
+            updateDarkModeBtn(darkmode)
+            updateLrtoggleBtn(lrtoggle)
         }
 
         // list of past n orientation data
