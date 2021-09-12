@@ -86,10 +86,21 @@
 
         rescale = () => {
             [α, β, γ].forEach(e => {
-                console.log(e)
-                console.log(e.parentElement)
-                e.width = e.parentElement.clientWidth
-                e.height = e.parentElement.clientHeight
+
+                // some bullshit i copied off stackoverflow 
+                // https://stackoverflow.com/questions/25197184/get-the-height-of-an-element-minus-padding-margin-border-widths
+                cs = getComputedStyle(e.parentElement)
+
+                paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight)
+                paddingY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
+                borderX = parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth)
+                borderY = parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth)
+
+                elementWidth = e.parentElement.offsetWidth - paddingX - borderX;
+                elementHeight = e.parentElement.offsetHeight - paddingY - borderY;
+
+                e.width = elementWidth
+                e.height = elementHeight
             })
         }
         window.addEventListener('resize', rescale)
