@@ -99,25 +99,30 @@
         // dark mode magic
         // eventually make floating button toggle
         darkmode = sessionStorage.getItem("darkmode") ? sessionStorage.getItem("darkmode") : false
-        toggleDarkMode = () => {
-            darkmode = !darkmode
-            localStorage.setItem('darkmode', darkmode)
+        updateDarkModeBtn = () => {
             document.body.style.background = darkmode ? '#000' : '#fff'
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
-            // toggle.style.backgroundColor = '#333'
         }
-        toggleDarkMode()
+        updateDarkModeBtn()
+        toggleDarkMode = () => {
+            darkmode = !darkmode
+            localStorage.setItem('darkmode', darkmode)
+            updateDarkModeBtn()
+        }
 
         lrtoggle = sessionStorage.getItem("lrtoggle") ? sessionStorage.getItem("lrtoggle") : false // left
-        toggleLR = () => {
-            lrtoggle = !lrtoggle
-            localStorage.setItem('lrtoggle', lrtoggle)
+        updateLrtoggleBtn = () => {
             document.querySelector('span').style.marginRight = lrtoggle ? "20px" : "calc(100% - 70px)"
             document.getElementById('lrswitcher').innerHTML = lrtoggle ? '👈' : '👉'
         }
-        toggleLR()
+        updateLrtoggleBtn()
+        toggleLR = () => {
+            lrtoggle = !lrtoggle
+            localStorage.setItem('lrtoggle', lrtoggle)
+            updateLrtoggleBtn()
+        }
 
         // list of past n orientation data
         alphas = []
