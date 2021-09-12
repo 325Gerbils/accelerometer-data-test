@@ -110,7 +110,7 @@
         }
         toggleDarkMode()
 
-        lrtoggle = sessionStorage.getItem("lrtoggle") ? sessionStorage.getItem("lrtoggle") : true // left
+        lrtoggle = sessionStorage.getItem("lrtoggle") ? sessionStorage.getItem("lrtoggle") : false // left
         toggleLR = () => {
             lrtoggle = !lrtoggle
             localStorage.setItem('lrtoggle', lrtoggle)
