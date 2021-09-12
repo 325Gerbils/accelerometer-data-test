@@ -10,14 +10,27 @@
     <script>
         
 document.body = document.createElement('body')
+accel_mode = false
+
+document.body.onmousedown = () => {
+    accel_mode = !accel_mode
+}
 
 alphas = []
 betas = []
 gammas = []
 
+xs = []
+ys = []
+zs = []
+
 current_α = 0
 current_β = 0
 current_γ = 0
+
+accel_x = 0
+accel_y = 0
+accel_z = 0
 
 α = document.createElement('canvas')
 α.setAttribute('id', 'α')
@@ -94,10 +107,19 @@ plot = (canvas, data) => {
 // }, 1000)
 
 window.addEventListener('deviceorientation', (e) => {
-    current_α = fix(e.alpha, 2)
-    current_β = fix(e.beta, 2)
-    current_γ = fix(e.gamma, 2)
+    current_α = fix(e.alpha, 6)
+    current_β = fix(e.beta, 6)
+    current_γ = fix(e.gamma, 6)
 })
+
+acl = new Accelerometer({frequency: 60})
+acl.addEventListener('reading', () => {
+    accel_x = fix(acl.x, 6)
+    accel_y = fix(acl.y, 6)
+    accel_z = fix(acl.z, 6)
+})
+
+acl.start()
 
 setInterval(() => {
     alphas.push(current_α)
@@ -107,9 +129,22 @@ setInterval(() => {
     plot(β, betas)
     plot(γ, gammas)
 
+    if (accel_mode) {
+        xs.push(accel_x)
+        ys.push(accel_y)
+        zs.push(accel_z)
+        plot(α, xs)
+        plot(β, ys)
+        plot(γ, zs)
+    }
+
     alphas = alphas.slice(-α.width/2)
     betas = betas.slice(-β.width/2)
     gammas = gammas.slice(-γ.width/2)
+    xs = xs.slice(-α.width/2)
+    ys = ys.slice(-β.width/2)
+    zs = zs.slice(-γ.width/2)
+
 }, 10)
 
 
