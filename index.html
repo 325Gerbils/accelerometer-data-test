@@ -123,6 +123,11 @@ setInterval(() => {
     alphas.push(current_α)
     betas.push(current_β)
     gammas.push(current_γ)
+    
+    xs.push(accel_x)
+    ys.push(accel_y)
+    zs.push(accel_z)
+
     α.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
     β.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
     γ.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
@@ -130,11 +135,9 @@ setInterval(() => {
     plot(α, alphas)    
     plot(β, betas)
     plot(γ, gammas)
-
+    
+    
     if (accel_mode) {
-        xs.push(accel_x)
-        ys.push(accel_y)
-        zs.push(accel_z)
         plot(α, xs)
         plot(β, ys)
         plot(γ, zs)
