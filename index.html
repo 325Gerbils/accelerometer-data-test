@@ -87,7 +87,7 @@
         window.addEventListener('resize', rescale)
         rescale()
 
-        // fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
+        fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
 
         scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
 
@@ -169,12 +169,12 @@
             zs = zs.slice(-γ.width / 3)
 
             data.push({
-                α: current_α,
-                β: current_β,
-                γ: current_γ,
-                x: accel_x,
-                y: accel_y,
-                z: accel_z,
+                α: fix(current_α, 5),
+                β: fix(current_β, 5),
+                γ: fix(current_γ, 5),
+                x: fix(accel_x, 5),
+                y: fix(accel_y, 5),
+                z: fix(accel_z, 5),
                 timestamp: Date.now().toString()
             })
 
