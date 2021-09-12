@@ -106,12 +106,11 @@
             // toggle.style.backgroundColor = '#333'
             toggle.blur()
         }
-        lrtoggle = false // left
+        lrtoggle = true // left
         toggleLR = () => {
             lrtoggle = !lrtoggle
-            document.querySelector('span').style.right = lrtoggle ? "20px" : ""
-            document.querySelector('span').style.left = lrtoggle ? "" : "20px"
-            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '⇄' : '⇆'
+            document.querySelector('span').style.right = lrtoggle ? "20px" : "calc(100% - 70px)"
+            document.getElementById('lrswitcher').innerHTML = lrtoggle ? '➡' : '⬅'
         }
         // list of past n orientation data
         alphas = []
