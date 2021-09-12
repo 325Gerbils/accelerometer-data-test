@@ -42,6 +42,9 @@
             alert("Accelerometer/rotation data copied to clipboard!")
         }
 
+        darkmode = true
+        document.body.style.background = darkmode ? '#000' : '#fff'
+
         alphas = []
         betas = []
         gammas = []
@@ -139,9 +142,9 @@
             β.getContext('2d').clearRect(0, 0, β.width, β.height)
             γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
 
-            α.getContext('2d').strokeStyle = '#000'
-            β.getContext('2d').strokeStyle = '#000'
-            γ.getContext('2d').strokeStyle = '#000'
+            α.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
+            β.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
+            γ.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
 
             plot(α, alphas)
             plot(β, betas)
