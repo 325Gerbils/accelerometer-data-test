@@ -151,12 +151,12 @@
             plot(γ, zs)
             // }
 
-            alphas = alphas.slice(-α.width)
-            betas = betas.slice(-β.width)
-            gammas = gammas.slice(-γ.width)
-            xs = xs.slice(-α.width)
-            ys = ys.slice(-β.width)
-            zs = zs.slice(-γ.width)
+            alphas = alphas.slice(-α.width / 2)
+            betas = betas.slice(-β.width / 2)
+            gammas = gammas.slice(-γ.width / 2)
+            xs = xs.slice(-α.width / 2)
+            ys = ys.slice(-β.width / 2)
+            zs = zs.slice(-γ.width / 2)
 
         }, 10)
 
