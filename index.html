@@ -8,6 +8,10 @@
     <style>
         /* fix everything */
 
+        :focus {
+            outline: none;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -97,6 +101,7 @@
             document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
             toggle = document.getElementById('darkmodetoggle')
             toggle.innerHTML = darkmode ? '🌞' : '🌙'
+            toggle.style.backgroundColor = '#333'
             toggle.blur()
         }
 
