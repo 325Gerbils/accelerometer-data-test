@@ -1,17 +1,20 @@
 <html>
 
 <head>
-    <title>
-    </title>
+    <title>orientation and accelerometer data</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#FFFFFF">
     <style>
+        /* fix everything */
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+        /* make whatever is in body into a centered column */
 
         body {
             display: flex;
@@ -19,6 +22,8 @@
             justify-content: center;
             flex-direction: column;
         }
+
+        /* full width divs, 1/3 of the viewport height each & a nice divider */
 
         div {
             padding: 10px 0;
@@ -30,42 +35,54 @@
 </head>
 
 <body>
-
+    <!-- who needs to write html anyways -->
     <script>
+        // stringify that recursively stringifies objects
+        // for copying the data variable as text
         oldStringify = JSON.stringify
         JSON.stringify = (obj, replacer, space) => oldStringify(obj, replacer || ((key, value) => {
             if (key && value === obj) return "[recursive]"
             return value
         }), space)
 
+        // for now - just copy the data variable to clipboard on double click
+        // replace with floating buttons & include a download
         document.body.ondblclick = () => {
             navigator.clipboard.writeText(JSON.stringify(data))
             // navigator.vibrate(100)
-            alert("Accelerometer/rotation data copied to clipboard!")
+            alert("Accelerometer/orientation data copied to clipboard!")
         }
 
-        darkmode = true
+        // dark mode magic
+        // eventually make floating button toggle
+        darkmode = false
         document.body.style.background = darkmode ? '#000' : '#fff'
         document.querySelector('meta[name="theme-color"]').setAttribute("content", darkmode ? '#000000' : '#ffffff');
 
+        // list of past n orientation data
         alphas = []
         betas = []
         gammas = []
 
+        // list of past n accelerometer data
         xs = []
         ys = []
         zs = []
 
+        // current orientation values
         current_α = 0
         current_β = 0
         current_γ = 0
 
+        // current accelerometer values
         accel_x = 0
         accel_y = 0
         accel_z = 0
 
+        // list of objects containing the orientation data, accelerometer data, and a timestamp for each step
         data = []
 
+        // make the canvii and parent divs
         α = document.createElement('canvas')
         α.setAttribute('id', 'α')
         parent_α = document.createElement('div')
@@ -84,6 +101,7 @@
         parent_γ.appendChild(γ)
         document.body.appendChild(parent_γ)
 
+        // resize each canvas to fill its parent element minus padding
         rescale = () => {
             [α, β, γ].forEach(e => {
 
@@ -101,17 +119,23 @@
                 e.height = elementHeight
             })
         }
+        // do it every time the page resizes
         window.addEventListener('resize', rescale)
+        // and right now
         rescale()
 
+        // fix a floating point number to a specified number of digits after the decimal point
         fix = (val, digits) => Math.round(val * Math.pow(10, digits)) / Math.pow(10, digits)
 
+        // scale a number in a range to another range and return the new value
+        // refactor this comment
         scale = (val, min, max, target_min, target_max) => (val - min) / (max - min) * (target_max - target_min) + target_min
 
         // now using scale for plot instead of autoscale for performance reasons 
         // no need to calculate min and max every time
         autoscale = (data, i, target_min, target_max) => scale(data[i], Math.min(...data), Math.max(...data), target_min, target_max)
 
+        // plot function
         plot = (canvas, data) => {
             ctx = canvas.getContext('2d')
             ctx.strokeWidth = 1
@@ -125,12 +149,14 @@
             }
         }
 
+        // read orientation data
         window.addEventListener('deviceorientation', (e) => {
             current_α = e.alpha
             current_β = e.beta
             current_γ = e.gamma
         })
 
+        // read accelerometer data
         acl = new Accelerometer({
             frequency: 60
         })
@@ -141,7 +167,10 @@
         })
         acl.start()
 
+        // this or a while(true) loop?
         setInterval(() => {
+
+            // push current values to history arrays
             alphas.push(current_α)
             betas.push(current_β)
             gammas.push(current_γ)
@@ -150,27 +179,24 @@
             ys.push(accel_y)
             zs.push(accel_z)
 
-            α.getContext('2d').clearRect(0, 0, α.width, α.height)
-            β.getContext('2d').clearRect(0, 0, β.width, β.height)
-            γ.getContext('2d').clearRect(0, 0, γ.width, γ.height)
-
-            α.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
-            β.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
-            γ.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
-
+            // plot orientation data
+            [α, β, γ].forEach(e => {
+                e.getContext('2d').clearRect(0, 0, e.width, e.height)
+                e.getContext('2d').strokeStyle = darkmode ? '#fff' : '#000'
+            })
             plot(α, alphas)
             plot(β, betas)
             plot(γ, gammas)
 
-            // if (accel_mode) {
-            α.getContext('2d').strokeStyle = '#888'
-            β.getContext('2d').strokeStyle = '#888'
-            γ.getContext('2d').strokeStyle = '#888'
+            // now plot accelerometer data
+            [α, β, γ].forEach(e => {
+                e.getContext('2d').strokeStyle = '#888'
+            })
             plot(α, xs)
             plot(β, ys)
             plot(γ, zs)
-            // }
 
+            // trim the data for display
             factor = 2
             alphas = alphas.slice(-α.width / factor)
             betas = betas.slice(-β.width / factor)
@@ -179,6 +205,7 @@
             ys = ys.slice(-β.width / factor)
             zs = zs.slice(-γ.width / factor)
 
+            // push data to data history array that can be copied / downloaded
             data.push({
                 α: fix(current_α, 5),
                 β: fix(current_β, 5),
@@ -189,7 +216,7 @@
                 time: Date.now().toString()
             })
 
-        }, 20)
+        }, 20) // 20 ms seems fast enough
     </script>
 </body>
 
